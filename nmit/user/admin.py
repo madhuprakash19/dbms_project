@@ -4,3 +4,4 @@ from . import models
 
 admin.site.register(models.user_status)
 admin.site.register(models.role)
+admin.site.register(models.user_profile)
