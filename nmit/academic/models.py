@@ -7,10 +7,11 @@ class subject(models.Model):
     code = models.CharField(max_length=10,blank=True,null=True)
     dept_id = models.ForeignKey(department,on_delete = models.CASCADE,blank=True,null=True)
     description = models.CharField(max_length=50,blank=True,null=True)
+    credit = models.IntegerField(blank=True,null=True,default=3)
 
 
     def __str__(self):
-        return str(self.name)+" "+self.id
+        return str(self.name)+" "+str(self.code)
 
 class student_class(models.Model):
     sem = models.CharField(max_length=10,blank=True,null=True)

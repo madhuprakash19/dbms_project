@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>subject page</h1>
+{% for i in subject %}
+  {{i.subject_id}}
+  <br>
+{% endfor %}
+{% endblock %}

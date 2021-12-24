@@ -6,7 +6,7 @@ class user_status(models.Model):
     name = models.CharField(max_length=20)
 
     def __str__(self):
-        return str(self.id)+" "+self.name
+        return self.name
 
 
 class role(models.Model):
@@ -22,4 +22,4 @@ class user_profile(models.Model):
     user_status = models.ForeignKey(user_status,on_delete = models.CASCADE,blank=True,null=True)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.user)
