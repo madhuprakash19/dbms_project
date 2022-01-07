@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>subject page</h1>
-{% for i in subject %}
-  {{i.subject_id}}
-  <br>
-{% endfor %}
+<div class="jumbotron">
+  {% for i in subject %}
+  <b>Subject</b> : {{i.subject_id}}<br>
+  <b>Class </b>: {{i.class_id}}<br><br>
+  <a href="{% url 'academic:view_class' id=i.class_id.id  %}" class="btn btn-primary btn-sm">View Class</a>
+
+  <br><br><br>
+  {% endfor %}
+
+</div>
 {% endblock %}

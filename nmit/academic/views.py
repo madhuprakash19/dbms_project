@@ -9,3 +9,6 @@ def subject(request):
 
     print(subject)
     return render(request,'subject.html',{'subject':subject})
+
+def view_class(request,id):
+    return render(request,'view_class.html',{'id':id})
