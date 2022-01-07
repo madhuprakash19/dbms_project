@@ -1,0 +1,322 @@
+[
+  {
+    "USN": "1NTI9IS123",
+    "NAME": "AMAN RAJ",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 0
+  },
+  {
+    "USN": "1NT19IS108",
+    "NAME": "AMRITANK GAUTAM",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 3
+  },
+  {
+    "USN": "1NT19EC009",
+    "NAME": "ASHUTOSH SAINI",
+    "BRANCH": 3,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 4
+  },
+  {
+    "USN": "1NT19IS124",
+    "NAME": "BHOJ PRATAP SINGH",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 3
+  },
+  {
+    "USN": "1NT19EC134",
+    "NAME": "SAI KIRAN",
+    "BRANCH": 3,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 3
+  },
+  {
+    "USN": "1NT19EC137",
+    "NAME": "DHARMIK MP",
+    "BRANCH": 3,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 3
+  },
+  {
+    "USN": "1NT19IS125",
+    "NAME": "G KRISHNA SAI",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 0
+  },
+  {
+    "USN": "1NT19IS126",
+    "NAME": "HARSHITHA SHAHI",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 5
+  },
+  {
+    "USN": "1NT19EC144",
+    "NAME": "KABIR PANDEY",
+    "BRANCH": 3,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 4
+  },
+  {
+    "USN": "1NT19EC153",
+    "NAME": "ADITI K",
+    "BRANCH": 3,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 5
+  },
+  {
+    "USN": "1NT19IS107",
+    "NAME": "GREESHMA",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 0
+  },
+  {
+    "USN": "1NT19IS188",
+    "NAME": "RENUKA PATIL",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 6
+  },
+  {
+    "USN": "1NT19EC156",
+    "NAME": "SANGEETHA",
+    "BRANCH": 3,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 5
+  },
+  {
+    "USN": "1NT19EC121",
+    "NAME": "RICHA SHETTY",
+    "BRANCH": 3,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 5
+  },
+  {
+    "USN": "1NT19IS127",
+    "NAME": "SAHANA G",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 0
+  },
+  {
+    "USN": "1NT19IS117",
+    "NAME": "SURYANSH ARYA",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 0
+  },
+  {
+    "USN": "1NT19IS003",
+    "NAME": "SAI PRANAV",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 1
+  },
+  {
+    "USN": "1NT19EC002",
+    "NAME": "JOHN STEPHEN",
+    "BRANCH": 3,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 3
+  },
+  {
+    "USN": "1NT19EC165",
+    "NAME": "PRANEETHA RAI",
+    "BRANCH": 3,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 5
+  },
+  {
+    "USN": "1NT19IS118",
+    "NAME": "SHILPA M",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 6
+  },
+  {
+    "USN": "1NT19EC189",
+    "NAME": "MRUDULA",
+    "BRANCH": 3,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 6
+  },
+  {
+    "USN": "1NT19IS134",
+    "NAME": "NISHANTH K",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 3
+  },
+  {
+    "USN": "1NT19CS009",
+    "NAME": "VAISHNAVI K",
+    "BRANCH": 2,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 5
+  },
+  {
+    "USN": "1NT19CS132",
+    "NAME": "SWETHA H",
+    "BRANCH": 2,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 6
+  },
+  {
+    "USN": "1NT19IS138",
+    "NAME": "NAMANA M N",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 5
+  },
+  {
+    "USN": "1NT19CS123",
+    "NAME": "J SUPRIYA",
+    "BRANCH": 2,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 5
+  },
+  {
+    "USN": "1NT19CS112",
+    "NAME": "SRIYA M",
+    "BRANCH": 2,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 5
+  },
+  {
+    "USN": "1NT19IS131",
+    "NAME": "ANVITHA B",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 5
+  },
+  {
+    "USN": "1NT19IS132",
+    "NAME": "ADITYA NARAYAN SINGH",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 4
+  },
+  {
+    "USN": "1NT19CS143",
+    "NAME": "VINAY S N",
+    "BRANCH": 2,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 4
+  },
+  {
+    "USN": "1NT19IS149",
+    "NAME": "JAYANTH A",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 1
+  },
+  {
+    "USN": "1NT19EC149",
+    "NAME": "ANIGDHA BANSAL",
+    "BRANCH": 3,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 5
+  },
+  {
+    "USN": "1NT19CS152",
+    "NAME": "CHETNA PATAK",
+    "BRANCH": 2,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 6
+  },
+  {
+    "USN": "1NT19IS169",
+    "NAME": "VISHAL RAJ",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 1
+  },
+  {
+    "USN": "1NT19CS157",
+    "NAME": "PUNITH S",
+    "BRANCH": 2,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 1
+  },
+  {
+    "USN": "1NT19CS166",
+    "NAME": "AMITH KASYAP",
+    "BRANCH": 2,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 3
+  },
+  {
+    "USN": "1NT19IS171",
+    "NAME": "NARESH GUBBE",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 4
+  },
+  {
+    "USN": "1NT19CS178",
+    "NAME": "AJAY L",
+    "BRANCH": 2,
+    "SEM": 5,
+    "SECTION": "B",
+    "HOSTEL": 3
+  },
+  {
+    "USN": "1NT19IS176",
+    "NAME": "R TEJASREE",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 5
+  },
+  {
+    "USN": "1NT19IS184",
+    "NAME": "ANCHAL KANT",
+    "BRANCH": 1,
+    "SEM": 5,
+    "SECTION": "C",
+    "HOSTEL": 5
+  }
+]

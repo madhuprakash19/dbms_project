@@ -1,0 +1,26 @@
+from django.contrib.auth.models import User
+from user.models import user_profile,user_status,role
+from info.models import student_details,hostel,department
+from academic.models import main_class,sub_class,registered_students
+user=User.objects.create_user('test1', password='test1')
+user.save()
+print("test1 created")
+username = User.objects.get(username='test1')
+status=user_status.objects.get(id=1)
+role_status=role.objects.get(id=1)
+profile = user_profile(user=username,role_id=role_status,user_status=status)
+profile.save()
+print("test1 user profile created")
+dept = department.objects.get(id=1)
+sname = "test1"
+susn = '1NT19IS185'
+student = student_details(user=username,name=sname,usn=susn,dept_id=dept)
+student.save()
+print("student_details created")
+main_class = main_class.objects.get(sem='5',dept_id=dept)
+print(main_class)
+sub_class = sub_class.objects.get(parent_class=main_class,section='C')
+print(sub_class)
+registration = registered_students(class_id=sub_class,student=username)
+registration.save()
+print("student sucessfully registered")
