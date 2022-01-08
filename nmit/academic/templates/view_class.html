@@ -1,5 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-Viewclass page
-{{id}}
+<h1>CLASS: {{sclass}}</h1>
+{% if fsubjects %}
+<b>Subjects handled by you : </b><br>
+<br>
+{% for i in fsubjects %}
+{{i.subject.class_subject}}<br>
+<a href="{% url 'academic:mark_attendence' class_id=sclass.id subject_id=i.id %}" class="btn btn-primary btn-sm">Mark Attendence</a>&emsp;
+<a href="#" class="btn btn-primary btn-sm">Enter Marks</a>
+<br><br>
+{% endfor %}
+{% else %}
+<p>You dont take any subject for this class</p>
+{% endif %}
+<br><br>
+<b>Subjects under this class</b>
+<ul>
+  {% for i in subjects %}
+    <li>{{i.class_subject}}</li>
+  {% endfor %}
+</ul>
+<b>List of all students</b>
+<ol>
+  {% for i in student_list %}
+    <li>{{i.student}}</li>
+  {% endfor %}
+</ol>
+<br>
 {% endblock %}

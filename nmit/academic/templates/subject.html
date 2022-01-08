@@ -3,9 +3,9 @@
 <h1>subject page</h1>
 <div class="jumbotron">
   {% for i in subject %}
-  <b>Subject</b> : {{i.subject_id}}<br>
-  <b>Class </b>: {{i.class_id}}<br><br>
-  <a href="{% url 'academic:view_class' id=i.class_id.id  %}" class="btn btn-primary btn-sm">View Class</a>
+  <b>Subject</b> : {{i.subject}}<br>
+  <b>Class </b>: {{i.sub_class_id}}<br><br>
+  <a href="{% url 'academic:view_class' id=i.sub_class_id.id  %}" class="btn btn-primary btn-sm">View Class</a>
 
   <br><br><br>
   {% endfor %}
