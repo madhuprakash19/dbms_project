@@ -52,6 +52,9 @@ class faculty_handled_class(models.Model):
     subject = models.ForeignKey(class_subject,on_delete = models.CASCADE)
     sub_class_id = models.ForeignKey(sub_class,on_delete = models.CASCADE)
 
+    def __str__(self):
+        return str(self.faculty_id)+" "+str(self.subject)
+
 
 
 # class student_class(models.Model):
@@ -87,3 +90,31 @@ class faculty_handled_class(models.Model):
 #
 #     def __str__(self):
 #         return str(self.id)
+
+
+class attendence_schedule(models.Model):
+    sclass = models.ForeignKey(sub_class,on_delete=models.CASCADE)
+    subject = models.ForeignKey(faculty_handled_class,on_delete=models.CASCADE)
+    date = models.DateField()
+    status = models.BooleanField(default = False)
+
+    def __str__(self):
+        return str(self.subject)
+
+class attendence(models.Model):
+    subject = models.ForeignKey(attendence_schedule,on_delete=models.CASCADE)
+    student = models.ForeignKey(User,on_delete=models.CASCADE)
+    status = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.student)+" "+str(self.subject.subject)
+
+class attendence_count(models.Model):
+    total_class = models.IntegerField(default=0)
+    attended_class = models.IntegerField(default=0)
+    student = models.ForeignKey(User,on_delete=models.CASCADE)
+    sclass = models.ForeignKey(sub_class,on_delete=models.CASCADE)
+    subject = models.ForeignKey(faculty_handled_class,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.student)+" "+str(self.subject)
