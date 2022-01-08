@@ -27,6 +27,12 @@ for i in range(0,n):
     status=user_status.objects.get(id=1)
     role_status=role.objects.get(id=1)
 
+    try:
+        username.first_name = data[i]['NAME']
+        username.save()
+    except:
+        print('Sorry that cant be done')
+
 
     try:
         temp = user_profile.objects.get(user=username)
@@ -35,6 +41,7 @@ for i in range(0,n):
         profile = user_profile(user=username,role_id=role_status,user_status=status)
         profile.save()
         print(data[i]['USN']+" user profile created")
+
 
     dept = department.objects.get(id=data[i]['BRANCH'])
     sname = data[i]['NAME']
