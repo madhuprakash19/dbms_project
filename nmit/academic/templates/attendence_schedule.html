@@ -8,4 +8,40 @@
     <br><br>
     <input type="submit" class="btn btn-primary" value="submit">
 </form>
+<h2>Previous Attendence Records</h2>
+  {% if attendence_list %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Class conducted on</th>
+      <th>Status</th>
+      <th>View/Edit</th>
+    </tr>
+  </thead>
+  {% for i in attendence_list %}
+  <tbody>
+    <tr>
+      <td>{{i.date}}</td>
+      {% if i.status %}
+        <td>
+          Marked
+        </td>
+         <td>
+           <a href="#" class="btn btn-primary btn-small">Click Here</a>
+         </td>
+       {% else %}
+        <td>
+          Saved as draft
+        </td>
+        <td>
+          <a href="#" class="btn btn-primary btn-small">Click Here</a>
+        </td>
+        {% endif %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  No record found
+{% endif %}
 {% endblock %}

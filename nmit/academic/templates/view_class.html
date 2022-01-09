@@ -1,24 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>CLASS: {{sclass}}</h1>
-{% if fsubjects %}
-<b>Subjects handled by you : </b><br>
-<br>
-{% for i in fsubjects %}
-{{i.subject.class_subject}}<br>
-<a href="{% url 'academic:attendence_schedule' class_id=sclass.id subject_id=i.id %}" class="btn btn-primary btn-sm">Mark Attendence</a>&emsp;
-<a href="#" class="btn btn-primary btn-sm">Enter Marks</a>
-<br><br>
-{% endfor %}
-{% else %}
-<p>You dont take any subject for this class</p>
-{% endif %}
-<br><br>
 <b>Subjects under this class</b>
 <ul>
-  {% for i in subjects %}
-    <li>{{i.class_subject}}</li>
-  {% endfor %}
+  {% for i,j in a.items %}
+    <li>{{i}}</li>
+    {% if j.subject_id %}
+      <a href="{% url 'academic:attendence_schedule' class_id=j.class_id subject_id=j.subject_id %}" class="btn btn-primary btn-sm">Mark Attendence</a>&emsp;
+      <a href="#" class="btn btn-primary btn-sm">Enter Marks</a>
+    {% endif %}
+    <br><br>
+{% endfor %}
 </ul>
 <b>List of all students</b>
 <ol>
@@ -27,4 +19,5 @@
   {% endfor %}
 </ol>
 <br>
+
 {% endblock %}
