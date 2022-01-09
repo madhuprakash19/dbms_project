@@ -50,7 +50,7 @@ def attendence_schedules(request,class_id,subject_id):
     else:
         attendence_form = AttendenceForm()
 
-    return render(request,'attendence_schedule.html',{'attendence_form':attendence_form,'attendence_list':attendence_list})
+    return render(request,'attendence_schedule.html',{'attendence_form':attendence_form,'attendence_list':attendence_list,'id_class':class_id,'id_subject':subject_id})
 
 
 def save_attendence(request):
@@ -135,6 +135,10 @@ def count_add(new,subject,student,sclass):
             acount.save()
             acount.total_class +=1
             acount.save()
+
+def edit_attendence(request,attendence_id,class_id,subject_id):
+    student_list = list(attendence.objects.filter(subject__id = attendence_id))
+    return render(request,'edit_attendence.html',{'attendence_id':attendence_id,'class_id':class_id,'student_list':student_list,'subject_id':subject_id})
 
 
 

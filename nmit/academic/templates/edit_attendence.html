@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="{% url 'academic:save_attendence' %}" method="post">
+    {% csrf_token %}
+  <input type="hidden" name="class_id" value="{{class_id}}">
+  <input type="hidden" name="attendence_id" value="{{attendence_id}}">
+  <input type="hidden" name="subject_id" value="{{subject_id}}">
+  {% if student_list %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Student name</th>
+            <th>Attendence Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in student_list %}
+          <tr>
+            <td>{{i.student.first_name}}</td>
+            <td>
+              {% if i.status %}
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-outline-success active">
+                    <input type="radio" name="{{ i.student.username }}" id="option1" autocomplete="off" value="present" checked> Present
+                </label>
+                <label class="btn btn-outline-danger">
+                    <input type="radio" name="{{ i.student.username }}" id="option2" autocomplete="off" value="absent"> Absent
+                </label>
+              </div>
+              {% else %}
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-outline-success active">
+                    <input type="radio" name="{{ i.student.username }}" id="option1" autocomplete="off" value="present" > Present
+                </label>
+                <label class="btn btn-outline-danger">
+                    <input type="radio" name="{{ i.student.username }}" id="option2" autocomplete="off" value="absent" checked> Absent
+                </label>
+              </div>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      {% endif %}
+      <input type="submit" value="Mark Attendence" class="btn btn-primary">
+  </form>
+{% endblock %}

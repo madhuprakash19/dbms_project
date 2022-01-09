@@ -8,4 +8,5 @@ urlpatterns = [
     path('markattendence/<int:class_id>/<int:attendence_id>/<int:subject_id>',views.mark_attendence,name='mark_attendence'),
     path('attendence_schedule/<int:class_id>/<int:subject_id>',views.attendence_schedules,name='attendence_schedule'),
     path('attedence/save_attendence/',views.save_attendence,name='save_attendence'),
+    path('edit-view-attedence/<int:attendence_id>/<int:class_id>/<int:subject_id>/',views.edit_attendence,name='edit_attendence'),
 ]
