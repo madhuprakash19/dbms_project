@@ -197,3 +197,33 @@ def save_marks(request):
                 a = marks(test_id=x,student = stud,marks_obtained=score)
                 a.save()
     return HttpResponseRedirect(reverse('academic:marks_list',args=[class_id,subject_id]))
+
+
+def marks_report(request):
+    class_id = registered_students.objects.get(student=request.user)
+    sclass = sub_class.objects.get(id = class_id.class_id.id)
+    mclass = main_class.objects.get(id = sclass.parent_class.id)
+    smarks = list(marks.objects.filter(student=request.user))
+    subjects = list(class_subject.objects.filter(class_id=mclass))
+    report = {}
+    for i in subjects:
+        report[i.class_subject.name] = {'LA1':0,'LA2':0,'MSE1':0,'MSE2':0,'MSE3':0,'SEE':0}
+    for i in smarks:
+        report[i.test_id.subject_id.class_subject.name][i.test_id.test_type.code] = i.marks_obtained
+    print(report)
+    return render(request,'marks_report.html',{'report':report})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    #
