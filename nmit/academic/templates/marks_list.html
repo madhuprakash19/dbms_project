@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Enter marks pags</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+    <th scope="col">Exam Type</th>
+    <th scope="col">Mark</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i,j in test_dict.items %}
+    <tr>
+      <td>{{i}}</td>
+      <td><a href="{% url 'academic:enter_marks' subject_id=subject_id class_id=class_id exam_id=j %}" class="btn btn-primary btn-small">Click Here</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<b>previously marked</b>
+<table class="table">
+  <thead>
+    <tr>
+    <th scope="col">Exam Type</th>
+    <th scope="col">View/Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in a %}
+    <tr>
+      <td>{{i.test_type.code}}</td>
+      <td><a href="{% url 'academic:edit_marks' subject_id=i.subject_handler.id class_id=i.class_id.id exam_id=i.test_type.id test_id=i.id %}" class="btn btn-primary btn-small">Click Here</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

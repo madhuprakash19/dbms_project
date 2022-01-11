@@ -144,50 +144,56 @@ def edit_attendence(request,attendence_id,class_id,subject_id):
     return render(request,'edit_attendence.html',{'attendence_id':attendence_id,'class_id':class_id,'student_list':student_list,'subject_id':subject_id})
 
 
-def enter_marks(request,class_id,subject_id):
+def marks_list(request,class_id,subject_id):
     test_dict = {'LA1':'1','LA2':'2','MSE1':'3','MSE2':'4','MSE3':'5','SEE':'6'}
     a = list(test.objects.filter(subject_handler__id = subject_id))
     for i in a:
         del test_dict[i.test_type.code]
 
 
-    return render(request,'enter_marks.html',{'class_id':class_id,'subject_id':subject_id,'test_dict':test_dict,'a':a})
+    return render(request,'marks_list.html',{'class_id':class_id,'subject_id':subject_id,'test_dict':test_dict,'a':a})
 
-def save_marks(request,class_id,subject_id,exam_id):
-    return render(request,'save_marks.html')
+#subject_id is actually subject_handler id
+def enter_marks(request,class_id,subject_id,exam_id):
+    sclass = sub_class.objects.get(id=class_id)
+    return render(request,'enter_marks.html',{'sclass':sclass,'class_id':class_id,'subject_id':subject_id,'exam_id':exam_id})
 
-def edit_marks(request,class_id,subject_id,exam_id):
-    return render(request,'edit_marks.html')
+def edit_marks(request,class_id,subject_id,exam_id,test_id):
+    sclass = sub_class.objects.get(id=class_id)
+    students_marked = list(marks.objects.filter(test_id__id=test_id))
+    return render(request,'edit_marks.html',{'students_marked':students_marked,'class_id':class_id,'subject_id':subject_id,'exam_id':exam_id})
 
+def save_marks(request):
+    class_id = request.POST['class_id']
+    sclass = sub_class.objects.get(id = class_id)
+    subject_id = request.POST['subject_id']
+    faculty = faculty_handled_class.objects.get(id = subject_id)
+    subject = class_subject.objects.get(id=faculty.subject.id)
+    print(subject)
+    test_type_object = test_type.objects.get(id = request.POST['exam_id'])
 
+    try:
+        x = test.objects.get(subject_handler=faculty,class_id=sclass,test_type=test_type_object,subject_id=subject)
+    except test.DoesNotExist:
+        x = test(subject_handler=faculty,class_id=sclass,test_type=test_type_object,subject_id=subject)
+        x.save()
 
+    b=[]
+    for i in sclass.students.all():
+        b.append(i.username)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#
+    for i,j in request.POST.items():
+        if i in b:
+            if j == '':
+                score = 0
+            else:
+                score = j
+            stud = get_object_or_404(User,username = i)
+            try:
+                a = marks.objects.get(test_id=x,student = stud )
+                a.marks_obtained = score
+                a.save()
+            except marks.DoesNotExist:
+                a = marks(test_id=x,student = stud,marks_obtained=score)
+                a.save()
+    return HttpResponseRedirect(reverse('academic:marks_list',args=[class_id,subject_id]))

@@ -7,7 +7,7 @@
     <li>{{i}}</li>
     {% if j.subject_id %}
       <a href="{% url 'academic:attendence_schedule' class_id=j.class_id subject_id=j.subject_id %}" class="btn btn-primary btn-sm">Mark Attendence</a>&emsp;
-      <a href="{% url 'academic:enter_marks' class_id=j.class_id subject_id=j.subject_id %}" class="btn btn-primary btn-sm">Enter Marks</a>
+      <a href="{% url 'academic:marks_list' class_id=j.class_id subject_id=j.subject_id %}" class="btn btn-primary btn-sm">Enter Marks</a>
     {% endif %}
     <br><br>
 {% endfor %}

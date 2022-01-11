@@ -1,39 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Enter marks pags</h1>
-
-<table class="table">
-  <thead>
-    <tr>
-    <th scope="col">Exam Type</th>
-    <th scope="col">Mark</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for i,j in test_dict.items %}
-    <tr>
-      <td>{{i}}</td>
-      <td><a href="{% url 'academic:save_marks' subject_id=subject_id class_id=class_id exam_id=j %}" class="btn btn-primary btn-small">Click Here</a></td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-<b>previously marked</b>
-<table class="table">
-  <thead>
-    <tr>
-    <th scope="col">Exam Type</th>
-    <th scope="col">View/Edit</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for i in a %}
-    <tr>
-      <td>{{i.test_type.code}}</td>
-      <td><a href="{% url 'academic:edit_marks' subject_id=i.subject_handler.id class_id=i.class_id.id exam_id=i.test_type.id %}" class="btn btn-primary btn-small">Click Here</a></td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
+<h1>enter Marks page</h1>
+<h1>Class:{{sclass}}</h1>
+<form action="{% url 'academic:save_marks' %}" method="post">
+  {% csrf_token %}
+    <table class="table table-striped">
+      <input type="hidden" name="class_id" value="{{class_id}}">
+      <input type="hidden" name="exam_id" value="{{exam_id}}">
+      <input type="hidden" name="subject_id" value="{{subject_id}}">
+          <thead>
+            <tr>
+              <th>Student name</th>
+              <th>Obtained Marks</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in sclass.students.all %}
+            <tr>
+              <td>{{i.first_name}}</td>
+              <td>
+                <input type="number" name="{{i.username}}" value="">
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <input type="submit" value="Save Marks" class="btn btn-primary">
+</form>
 {% endblock %}

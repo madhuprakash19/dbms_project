@@ -145,7 +145,7 @@ class marks(models.Model):
     marks_obtained = models.IntegerField(default=0)
 
     def __str__(self):
-        return str(self.student.first_name)+" "(self.test_id.test_type.code)
+        return str(self.student.first_name)+" "+str(self.test_id.test_type.code)
 
 
 
