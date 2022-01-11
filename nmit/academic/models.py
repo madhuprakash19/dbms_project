@@ -118,3 +118,45 @@ class attendence_count(models.Model):
 
     def __str__(self):
         return str(self.student)+" "+str(self.subject)
+
+class test_type(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=50,blank=True,null=True)
+    code = models.CharField(max_length=10,blank=True,null=True)
+    max_marks = models.IntegerField(default=10,blank=True,null=True)
+    pass_marks = models.IntegerField(default=4,blank=True,null=True)
+
+    def __str__(self):
+        return str(self.id)+" "+str(self.code)
+
+class test(models.Model):
+    subject_handler = models.ForeignKey(faculty_handled_class,on_delete=models.CASCADE)
+    test_type = models.ForeignKey(test_type,on_delete=models.CASCADE)
+    class_id = models.ForeignKey(sub_class,on_delete=models.CASCADE)
+    subject_id = models.ForeignKey(class_subject,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.subject_handler.faculty_id) +" "+str(self.test_type.code)
+
+
+class marks(models.Model):
+    test_id = models.ForeignKey(test,on_delete=models.CASCADE)
+    student = models.ForeignKey(User,on_delete=models.CASCADE)
+    marks_obtained = models.IntegerField(default=0)
+
+    def __str__(self):
+        return str(self.student.first_name)+" "(self.test_id.test_type.code)
+
+
+
+
+
+
+
+
+
+
+
+
+
+#
