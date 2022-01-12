@@ -27,15 +27,35 @@ class designation(models.Model):
     def __str__(self):
         return str(self.id)+" "+self.name
 
-class faculty(models.Model):
+#
+# class faculty(models.Model):
+#     user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
+#     name = models.CharField(max_length=50,blank=True,null=True)
+#     dept_id = models.ForeignKey(User,related_name='dept_id',on_delete = models.CASCADE,blank=True,null=True)
+#     email = models.EmailField(max_length=50,blank=True,null=True)
+#     phone_number = models.IntegerField(blank=True,null=True)
+#     dob = models.DateField(max_length=10,blank=True,null=True)
+#     gender = models.CharField(max_length=20,blank=True,null=True)
+#     designation_id = models.ForeignKey(User,related_name='designation_id',on_delete = models.CASCADE,blank=True,null=True)
+#     year_of_joining = models.IntegerField(blank=True,null=True)
+#     address =  models.CharField(max_length=50,blank=True,null=True)
+#     salary = models.IntegerField(blank=True,null=True)
+#     new_dept = models.ForeignKey(department,on_delete = models.CASCADE,blank=True,null=True,default = 1)
+#
+#
+#     def __str__(self):
+#         return str(self.id)+" "+self.related_name
+
+
+class teacher(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
     name = models.CharField(max_length=50,blank=True,null=True)
-    dept_id = models.ForeignKey(User,related_name='dept_id',on_delete = models.CASCADE,blank=True,null=True)
+    dept_id = models.ForeignKey(department,related_name='dept_id',on_delete = models.CASCADE,blank=True,null=True)
     email = models.EmailField(max_length=50,blank=True,null=True)
     phone_number = models.IntegerField(blank=True,null=True)
     dob = models.DateField(max_length=10,blank=True,null=True)
     gender = models.CharField(max_length=20,blank=True,null=True)
-    designation_id = models.ForeignKey(User,related_name='designation_id',on_delete = models.CASCADE,blank=True,null=True)
+    designation_id = models.ForeignKey(designation,related_name='designation_id',on_delete = models.CASCADE,blank=True,null=True)
     year_of_joining = models.IntegerField(blank=True,null=True)
     address =  models.CharField(max_length=50,blank=True,null=True)
     salary = models.IntegerField(blank=True,null=True)
