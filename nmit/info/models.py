@@ -62,7 +62,7 @@ class teacher(models.Model):
 
 
     def __str__(self):
-        return str(self.id)+" "+self.related_name
+        return self.user.username
 
 class student_details(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)

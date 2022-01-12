@@ -14,6 +14,6 @@ urlpatterns = [
     path('edit_marks/<int:class_id>/<int:subject_id>/<int:exam_id>/<int:test_id>',views.edit_marks,name='edit_marks'),
     path('save_marks/',views.save_marks,name='save_marks'),
     path('marks_report/',views.marks_report,name='marks_report'),
-    path('bootstrap/',views.bootstrap_test,name='bootstrap'),
-
+    path('time/',views.time_test,name='bootstrap'),
+    path('time_list/',views.time_list,name='time_list'),
 ]

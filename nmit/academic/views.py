@@ -4,6 +4,7 @@ from academic.models import (test,marks,test_type,
                             attendence_count,faculty_handled_class,
                             sub_class,registered_students,main_class,
                             class_subject,attendence_schedule,attendence)
+from info.models import teacher,department
 from .forms import AttendenceForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -213,9 +214,35 @@ def marks_report(request):
     print(report)
     return render(request,'marks_report.html',{'report':report})
 
-def bootstrap_test(request):
+def time_test(request):
+    print(request.POST)
+    return render(request,'time.html')
 
-    return render(request,'bootstrap_test.html')
+def time_list(request):
+    error = ''
+    a=[]
+    try:
+        hod_status = teacher.objects.get(user=request.user)
+        if hod_status.designation_id.id == 2:
+            print( hod_status.dept_id.id)
+            dept = department.objects.get(id = hod_status.dept_id.id)
+            print(type(dept))
+            mclass = list(main_class.objects.filter(dept_id=dept))
+            print(mclass)
+            for i in mclass:
+                temp = sub_class.objects.filter(parent_class=i)
+                a.append(temp)
+        else:
+            error = "You dont have permissions"
+    except:
+        error = "You dont have permissions"
+    print(error)
+    print(a)
+
+    return render(request,'time_list.html',{'error':error,'a':a})
+
+
+
 
 
 

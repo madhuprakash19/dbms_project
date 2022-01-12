@@ -149,6 +149,19 @@ class marks(models.Model):
 
 
 
+class days(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return str(self.id)+" "+self.name
+
+
+class time_table(models.Model):
+    faculty = models.ForeignKey(faculty_handled_class,on_delete = models.CASCADE,blank=True,null=True)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    day = models.ForeignKey(days,on_delete = models.CASCADE,blank=True,null=True)
 
 
 
