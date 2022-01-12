@@ -1,19 +1,28 @@
 {% extends "base.html" %}
 {% load bootstrap3 %}
-
+{% load static %}
 {% block content %}
-<br><br>
-<div class="container">
-  <h1>Login</h1>
-  <br>
-  <form method="post">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    <input type="submit" class="btn btn-primary" value="Log In">
-  </form>
-  <br><hr>
-  <h3>Trouble in Login?</h3>
-  <p>Contact Admin Department</p>
-</div>
-
+<link rel="stylesheet" href="{% static 'styles.min.css' %}">
+<section  class="login-dark">
+<form method="post">
+  {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="fieldWrapper">
+        {{ form.username.errors }}
+        <div class="form-group">
+          <label for="{{ form.username.id_for_label }}">Username:</label>
+          {{ form.username }}
+        </div>
+    </div>
+    <div class="fieldWrapper">
+        {{ form.password.errors }}
+        <label for="{{ form.password.id_for_label }}">Password:</label>
+        {{ form.password }}
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary btn-block" type="submit">Log In</button>
+    </div>
+    <p class="text-muted">Any Trouble? Contact Admin Department</p>
+</form>
+</section>
 {% endblock %}

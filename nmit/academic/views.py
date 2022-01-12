@@ -213,6 +213,10 @@ def marks_report(request):
     print(report)
     return render(request,'marks_report.html',{'report':report})
 
+def bootstrap_test(request):
+
+    return render(request,'bootstrap_test.html')
+
 
 
 
