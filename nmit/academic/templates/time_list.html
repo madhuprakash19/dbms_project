@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-{% for i in a %}
-{{i}}
+Select Sem to continue:<br>
+{% for i in mclass %}
+<a href="{% url 'academic:choose_section' id=i.id sem=i.sem%}">{{i.sem}}th SEM</a>
+<br>
 {% endfor %}
 {% endblock %}

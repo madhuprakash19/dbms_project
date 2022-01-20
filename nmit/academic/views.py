@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from academic.models import (test,marks,test_type,
                             attendence_count,faculty_handled_class,
                             sub_class,registered_students,main_class,
-                            class_subject,attendence_schedule,attendence)
+                            class_subject,attendence_schedule,attendence,
+                            time_table,days)
 from info.models import teacher,department
 from .forms import AttendenceForm
 from django.http import HttpResponseRedirect
@@ -16,6 +17,7 @@ def subject(request):
 
     return render(request,'subject.html',{'subject':subject})
 
+@login_required
 def view_class(request,id):
     sclass = sub_class.objects.get(id=id)
     fsubjects = list(faculty_handled_class.objects.filter(faculty_id=request.user,sub_class_id=sclass))
@@ -34,6 +36,7 @@ def view_class(request,id):
 
     return render(request,'view_class.html',{'student_list':student_list,'sclass':sclass,'a':a})
 
+@login_required
 def mark_attendence(request,class_id,attendence_id,subject_id):
     sclass = sub_class.objects.get(id=class_id)
     return render(request,'mark_attendence.html',{'sclass':sclass,'attendence_id':attendence_id,'subject_id':subject_id,'class_id':class_id})
@@ -57,6 +60,7 @@ def attendence_schedules(request,class_id,subject_id):
     return render(request,'attendence_schedule.html',{'attendence_form':attendence_form,'attendence_list':attendence_list,'id_class':class_id,'id_subject':subject_id})
 
 
+@login_required
 def save_attendence(request):
     attendence_list = attendence_schedule.objects.get(id=request.POST['attendence_id'])
     class_id = request.POST['class_id']
@@ -93,6 +97,7 @@ def save_attendence(request):
     return HttpResponseRedirect(reverse('academic:attendence_schedule',args=[class_id,subject_id]))
 
 
+@login_required
 def count_edit(old,new,subject,student,sclass):
     if old.status==False and new==True:
         try:
@@ -116,6 +121,7 @@ def count_edit(old,new,subject,student,sclass):
             acount.total_class +=1
             acount.save()
 
+@login_required
 def count_add(new,subject,student,sclass):
     if new:
         try:
@@ -140,11 +146,13 @@ def count_add(new,subject,student,sclass):
             acount.total_class +=1
             acount.save()
 
+@login_required
 def edit_attendence(request,attendence_id,class_id,subject_id):
     student_list = list(attendence.objects.filter(subject__id = attendence_id))
     return render(request,'edit_attendence.html',{'attendence_id':attendence_id,'class_id':class_id,'student_list':student_list,'subject_id':subject_id})
 
 
+@login_required
 def marks_list(request,class_id,subject_id):
     test_dict = {'LA1':'1','LA2':'2','MSE1':'3','MSE2':'4','MSE3':'5','SEE':'6'}
     a = list(test.objects.filter(subject_handler__id = subject_id))
@@ -155,15 +163,18 @@ def marks_list(request,class_id,subject_id):
     return render(request,'marks_list.html',{'class_id':class_id,'subject_id':subject_id,'test_dict':test_dict,'a':a})
 
 #subject_id is actually subject_handler id
+@login_required
 def enter_marks(request,class_id,subject_id,exam_id):
     sclass = sub_class.objects.get(id=class_id)
     return render(request,'enter_marks.html',{'sclass':sclass,'class_id':class_id,'subject_id':subject_id,'exam_id':exam_id})
 
+@login_required
 def edit_marks(request,class_id,subject_id,exam_id,test_id):
     sclass = sub_class.objects.get(id=class_id)
     students_marked = list(marks.objects.filter(test_id__id=test_id))
     return render(request,'edit_marks.html',{'students_marked':students_marked,'class_id':class_id,'subject_id':subject_id,'exam_id':exam_id})
 
+@login_required
 def save_marks(request):
     class_id = request.POST['class_id']
     sclass = sub_class.objects.get(id = class_id)
@@ -200,6 +211,7 @@ def save_marks(request):
     return HttpResponseRedirect(reverse('academic:marks_list',args=[class_id,subject_id]))
 
 
+@login_required
 def marks_report(request):
     class_id = registered_students.objects.get(student=request.user)
     sclass = sub_class.objects.get(id = class_id.class_id.id)
@@ -214,24 +226,20 @@ def marks_report(request):
     print(report)
     return render(request,'marks_report.html',{'report':report})
 
+@login_required
 def time_test(request):
     print(request.POST)
     return render(request,'time.html')
 
+@login_required
 def time_list(request):
     error = ''
     a=[]
     try:
         hod_status = teacher.objects.get(user=request.user)
         if hod_status.designation_id.id == 2:
-            print( hod_status.dept_id.id)
             dept = department.objects.get(id = hod_status.dept_id.id)
-            print(type(dept))
             mclass = list(main_class.objects.filter(dept_id=dept))
-            print(mclass)
-            for i in mclass:
-                temp = sub_class.objects.filter(parent_class=i)
-                a.append(temp)
         else:
             error = "You dont have permissions"
     except:
@@ -239,10 +247,26 @@ def time_list(request):
     print(error)
     print(a)
 
-    return render(request,'time_list.html',{'error':error,'a':a})
+    return render(request,'time_list.html',{'error':error,'mclass':mclass})
 
 
+@login_required
+def choose_section(request,id,sem):
+    sclass = list(sub_class.objects.filter(parent_class__id = id))
+    return render(request,'choose_section.html',{'sclass':sclass,'sem':sem})
 
+@login_required
+def select_days(request,id):
+    marked_days = list(time_table.objects.filter(sclass__id = id))
+    unmarked_days = {1:'Monday',2:'Tuesday',3:'Wednesday',4:'Thrusday',5:'Friday',6:'Saturday'}
+    for i in marked_days:
+        del unmarked_days[i.day.id]
+    print(unmarked_days)
+    return render(request,'select_days.html',{'marked_days':marked_days,'unmarked_days':unmarked_days,'id':id})
+
+@login_required
+def add_time(request,class_id,day_id):
+    return render(request,'add_time.html',{'class_id':class_id,'day_id':day_id})
 
 
 

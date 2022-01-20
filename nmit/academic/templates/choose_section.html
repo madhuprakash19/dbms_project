@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+{{sem}} SEM
+<h1>Choose section page</h1>
+{% for i in sclass %}
+<a href="{% url 'academic:select_days' id=i.id %}">{{i.section}}</a>
+{% endfor %}
+{% endblock %}

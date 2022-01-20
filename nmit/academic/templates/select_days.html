@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Unmarked</h1>
+{% for i,j in unmarked_days.items %}
+<a href="{% url 'academic:add_time' class_id=id day_id=i %}">{{j}}</a>
+<br>
+{% endfor %}
+<h1>Mark/Edit</h1>
+{% for i in marked_days %}
+{{i}}
+{% endfor %}
+{% endblock %}

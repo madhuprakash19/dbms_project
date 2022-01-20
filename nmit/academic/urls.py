@@ -16,4 +16,7 @@ urlpatterns = [
     path('marks_report/',views.marks_report,name='marks_report'),
     path('time/',views.time_test,name='bootstrap'),
     path('time_list/',views.time_list,name='time_list'),
+    path('choose_section/<int:id>/<int:sem>',views.choose_section,name='choose_section'),
+    path('select_days/<int:id>',views.select_days,name='select_days'),
+    path('add_time/<int:class_id>/<int:day_id>',views.add_time,name='add_time'),
 ]

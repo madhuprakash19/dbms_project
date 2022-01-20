@@ -159,9 +159,14 @@ class days(models.Model):
 
 class time_table(models.Model):
     faculty = models.ForeignKey(faculty_handled_class,on_delete = models.CASCADE,blank=True,null=True)
+    teacher = models.ForeignKey(User,on_delete = models.CASCADE,blank=True,null=True,default=2)
     start_time = models.TimeField()
     end_time = models.TimeField()
     day = models.ForeignKey(days,on_delete = models.CASCADE,blank=True,null=True)
+    sclass = models.ForeignKey(sub_class,on_delete = models.CASCADE,blank=True,null=True)
+
+    def __str__(self):
+        return self.day.name
 
 
 
