@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Mark New Attendence</h2>
-<p>Select Class Date to continue </p>
-<form class=""  method="post">
+<h2 class="text-center w3-animate-zoom">Marking Attendence for {{sclass}}</h2>
+<h4 class="text-muted text-center w3-animate-zoom">{{subject.subject.class_subject}}</h4>
+<p class="w3-animate-bottom">Select Class Date to continue </p>
+<form class="w3-animate-bottom"  method="post">
     {% csrf_token %}
     {{ attendence_form }}
     <br><br>
     <input type="submit" class="btn btn-primary" value="submit">
 </form>
-<h2>Previous Attendence Records</h2>
+<br>
+<h2 class="w3-animate-bottom">Previous Attendence Records</h2>
   {% if attendence_list %}
-<table class="table table-striped">
+<table class="table table-striped w3-animate-opacity">
   <thead>
     <tr>
       <th>Class conducted on</th>

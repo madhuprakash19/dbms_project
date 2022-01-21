@@ -1,23 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>CLASS: {{sclass}}</h1>
-<b>Subjects under this class</b>
-<ul>
-  {% for i,j in a.items %}
-    <li>{{i}}</li>
-    {% if j.subject_id %}
-      <a href="{% url 'academic:attendence_schedule' class_id=j.class_id subject_id=j.subject_id %}" class="btn btn-primary btn-sm">Mark Attendence</a>&emsp;
-      <a href="{% url 'academic:marks_list' class_id=j.class_id subject_id=j.subject_id %}" class="btn btn-primary btn-sm">Enter Marks</a>
-    {% endif %}
-    <br><br>
-{% endfor %}
-</ul>
-<b>List of all students</b>
-<ol>
-  {% for i in student_list %}
-    <li>{{i.student.first_name}}</li>
-  {% endfor %}
-</ol>
-<br>
+<div class="jumbotron">
+  <h1 class="text-center  w3-animate-zoom">CLASS: {{sclass}}</h1>
+  <h4 class=" w3-animate-bottom">Subjects under this class:</h4>
+  <ul class=" w3-animate-bottom">
+    {% for i,j in a.items %}
+      <li class=" w3-animate-bottom">{{i}}</li>
+      {% if j.subject_id %}
+        <a href="{% url 'academic:attendence_schedule' class_id=j.class_id subject_id=j.subject_id %}" class="btn btn-primary btn-sm">Mark Attendence</a>&emsp;
+        <a href="{% url 'academic:marks_list' class_id=j.class_id subject_id=j.subject_id %}" class="btn btn-primary btn-sm">Enter Marks</a>
+      {% endif %}
+      <br><br>
+    {% endfor %}
+  </ul>
+  <b class=" w3-animate-bottom">List of all students</b>
+  <ol class=" w3-animate-bottom">
+    {% for i in student_list %}
+      <li>{{i.student.first_name}}</li>
+    {% endfor %}
+  </ol>
+  <br>
+</div>
 
 {% endblock %}

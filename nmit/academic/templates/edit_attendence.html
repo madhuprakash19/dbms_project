@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="w3-animate-zoom">
 <form action="{% url 'academic:save_attendence' %}" method="post">
     {% csrf_token %}
   <input type="hidden" name="class_id" value="{{class_id}}">
@@ -46,4 +47,5 @@
       {% endif %}
       <input type="submit" value="Mark Attendence" class="btn btn-primary">
   </form>
+</div>
 {% endblock %}

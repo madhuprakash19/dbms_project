@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>subject page</h1>
 <div class="jumbotron">
+  <h1 class=" w3-animate-bottom">Subjects Handled by {{user}}</h1><br><br>
   {% for i in subject %}
-  <b>Subject</b> : {{i.subject}}<br>
-  <b>Class </b>: {{i.sub_class_id}}<br><br>
-  <a href="{% url 'academic:view_class' id=i.sub_class_id.id  %}" class="btn btn-primary btn-sm">View Class</a>
+  <b class=" w3-animate-bottom">Subject</b><span class=w3-animate-bottom>: {{i.subject}}</span><br>
+  <b class=" w3-animate-bottom">Class </b><span class="w3-animate-bottom">: {{i.sub_class_id}}</span><br><br>
+  <a href="{% url 'academic:view_class' id=i.sub_class_id.id  %}" class="btn btn-primary btn-sm  w3-animate-bottom">View Class</a>
 
   <br><br><br>
   {% endfor %}

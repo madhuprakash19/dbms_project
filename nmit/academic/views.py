@@ -21,18 +21,28 @@ def forbidden(request):
 def home(request):
     today = datetime.today().strftime('%A')
     if(student_status(request.user)):
-        return render(request,'student_home.html',{'day':day})
+        try:
+            day_subject = registered_students.objects.get(student=request.user)
+            sclass = day_subject.class_id
+            day_subject = list(time_table.objects.filter(sclass = sclass))
+        except:
+            day_subject = 'There are no classes today'
+        return render(request,'student_home.html',{'day_subject':day_subject})
+
     elif(hod_status(request.user)):
         day = days.objects.get(name = today)
         try:
-            day_subject = time_table.objects.get(day = day)
+            print("in try")
+            day_subject = list(time_table.objects.filter(day = day,teacher=request.user))
         except:
+            print("in except")
             day_subject = 'There are no classes today'
         return render(request,'hod_home.html',{'day':day,'day_subject':day_subject})
+
     elif(faculty_status(request.user)):
         day = days.objects.get(name = today)
         try:
-            day_subject = time_table.objects.get(day = day)
+            day_subject = list(time_table.objects.filter(day = day,teacher=request.user))
         except:
             day_subject = 'There are no classes today'
         return render(request,'hod_home.html',{'day':day,'day_subject':day_subject})
@@ -83,6 +93,8 @@ def mark_attendence(request,class_id,attendence_id,subject_id):
 @login_required
 def attendence_schedules(request,class_id,subject_id):
     if(faculty_status(request.user)):
+        sclass = sub_class.objects.get(id=class_id)
+        subject = faculty_handled_class.objects.get(id=subject_id)
         attendence_list = list(attendence_schedule.objects.filter(subject__id=subject_id).order_by('-id')) #double __ is used to point the id of the pointing foreign key object
         if request.method == 'POST':
             attendence_form = AttendenceForm(data = request.POST)
@@ -98,7 +110,7 @@ def attendence_schedules(request,class_id,subject_id):
         else:
             attendence_form = AttendenceForm()
 
-        return render(request,'attendence_schedule.html',{'attendence_form':attendence_form,'attendence_list':attendence_list,'id_class':class_id,'id_subject':subject_id})
+        return render(request,'attendence_schedule.html',{'attendence_form':attendence_form,'attendence_list':attendence_list,'id_class':class_id,'id_subject':subject_id,'sclass':sclass,'subject':subject})
     else:
         return forbidden(request)
 
@@ -200,13 +212,14 @@ def edit_attendence(request,attendence_id,class_id,subject_id):
 @login_required
 def marks_list(request,class_id,subject_id):
     if(faculty_status(request.user)):
+        sclass = sub_class.objects.get(id=class_id)
         test_dict = {'LA1':'1','LA2':'2','MSE1':'3','MSE2':'4','MSE3':'5','SEE':'6'}
         a = list(test.objects.filter(subject_handler__id = subject_id))
         for i in a:
             del test_dict[i.test_type.code]
 
 
-        return render(request,'marks_list.html',{'class_id':class_id,'subject_id':subject_id,'test_dict':test_dict,'a':a})
+        return render(request,'marks_list.html',{'class_id':class_id,'subject_id':subject_id,'test_dict':test_dict,'a':a,'sclass':sclass})
     else:
         return forbidden(request)
 

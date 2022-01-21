@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Edit Marks page</h1>
+<div class="jumbotron">
+<h1 class=" w3-animate-zoom text-center">Edit Marks</h1><br>
 <form action="{% url 'academic:save_marks' %}" method="post">
   {% csrf_token %}
     <table class="table table-striped">
@@ -9,15 +10,15 @@
       <input type="hidden" name="subject_id" value="{{subject_id}}">
           <thead>
             <tr>
-              <th>Student name</th>
-              <th>Obtained Marks</th>
+              <th class="w3-animate-bottom">Student name</th>
+              <th class="w3-animate-bottom">Obtained Marks</th>
             </tr>
           </thead>
           <tbody>
             {% for i in students_marked %}
             <tr>
-              <td>{{i.student.first_name}}</td>
-              <td>
+              <td class="w3-animate-bottom">{{i.student.first_name}}</td>
+              <td class="w3-animate-bottom">
                 <input type="number" name="{{i.student.username}}" value="{{i.marks_obtained}}">
               </td>
             </tr>
@@ -26,4 +27,5 @@
         </table>
         <input type="submit" value="Save marks" class="btn btn-primary">
 </form>
+</div>
 {% endblock %}

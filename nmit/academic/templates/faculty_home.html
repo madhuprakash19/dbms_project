@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Faculty page</h1>
-<a href="{% url 'academic:teacher_subject' %}">Your subjects</a>
-{{day_subject}}
+<div class="jumbotron">
+  <h1 class=" w3-animate-bottom">Wecome {{user}}</h1><br>
+  <a href="{% url 'academic:teacher_subject' %}"  class="btn btn-info w3-animate-bottom">View Subjects</a>
+  <br><br>
+  <h4 class="text-muted w3-animate-bottom">Today's Classes</h4><br>
+  <ul class="w3-animate-bottom">
+    {% for i in day_subject %}
+    <li class="w3-animate-bottom">
+      {{i.faculty.subject.class_subject}}<br>
+      {{i.sclass}}<br>
+      Start Time : {{i.start_time}}<br>
+      End Time : {{i.end_time}}<br><br>
+      <a href="{% url 'academic:attendence_schedule' class_id=i.sclass.id subject_id=i.faculty.id %}" class="btn btn-primary btn-sm">Mark Attendence</a>
+    </li><br>
+    {% endfor %}
+  </ul>
+</div>
 {% endblock %}
