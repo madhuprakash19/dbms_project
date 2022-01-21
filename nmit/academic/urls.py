@@ -3,6 +3,7 @@ from . import views
 app_name = 'academic'
 
 urlpatterns = [
+    path('home/',views.home,name='home'),
     path('subject/',views.subject,name='teacher_subject'),
     path('view_class/<int:id>/',views.view_class,name='view_class'),
     path('markattendence/<int:class_id>/<int:attendence_id>/<int:subject_id>',views.mark_attendence,name='mark_attendence'),
@@ -21,4 +22,6 @@ urlpatterns = [
     path('add_time/<int:class_id>/<int:day_id>/<int:errornum>',views.add_time,name='add_time'),
     path('save_time/',views.save_time,name='save_time'),
     path('edit_time/<int:id>',views.edit_time,name='edit_time'),
+    path('delete_time/<int:id>',views.delete_time,name='delete_time'),
+    path('forbidden/',views.forbidden,name='forbidden'),
 ]

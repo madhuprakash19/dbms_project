@@ -106,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_REDIRECT_URL = '/info/home'
+LOGIN_REDIRECT_URL = '/academic/home'
 LOGIN_URL = '/user/login'
 LOGOUT_REDIRECT_URL = '/user/login'
 

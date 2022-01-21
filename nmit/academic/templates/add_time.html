@@ -36,6 +36,7 @@
       End Time : {{i.end_time}}
       <br>
       <a href="{% url 'academic:edit_time' id=i.id %}" class="btn btn-primary btn-sm">Edit</a>
+      <a href="{% url 'academic:delete_time' id=i.id %}" class="btn btn-danger btn-sm">Delete</a>
     </li>
   {% endfor %}
 </ul>
