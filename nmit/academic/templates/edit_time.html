@@ -6,9 +6,9 @@
 <form action="{% url 'academic:save_time' %}" method="POST">
   {% csrf_token %}
         Start time:
-        <input type="time" name="start_time"  >
+        <input type="time" name="start_time" required >
         End time:
-        <input type="time" name="end_time" >
+        <input type="time" name="end_time" required >
 
     <br><br>
 

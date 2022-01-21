@@ -34,6 +34,8 @@
       Start Time : {{i.start_time}}
       <br>
       End Time : {{i.end_time}}
+      <br>
+      <a href="{% url 'academic:edit_time' id=i.id %}" class="btn btn-primary btn-sm">Edit</a>
     </li>
   {% endfor %}
 </ul>
