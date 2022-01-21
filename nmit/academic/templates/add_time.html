@@ -1,6 +1,40 @@
 {% extends "base.html" %}
 {% block content %}
 <p>Add time page</p>
-{{class_id}}
-{{day_id}}
+{{error}}
+<form method="POST">
+  {% csrf_token %}
+        Start time:
+        <input type="time" name="start_time" required>
+        End time:
+        <input type="time" name="end_time" required>
+
+    <br><br>
+
+    <label for="cars">Select Faculty and subject:</label>
+
+    <select name="subjects" id="cars" required>
+      {% for i in teacher %}
+        <option value="{{i.id}}">{{i}}</option>
+      {% endfor %}
+    </select>
+    <br>
+    <input type="submit" value="Submit">
+    <input type="hidden" name="day" value="{{day_id}}">
+    <input type="hidden" name="day" value="{{class_id}}">
+    <input type="hidden" name="new" value="1">
+</form>
+<br><br>
+<h1>Previously marked</h1>
+<ul>
+  {% for i in marked_days %}
+    <li>
+      Faculty and subject: {{i.faculty}}
+      <br>
+      Start Time : {{i.start_time}}
+      <br>
+      End Time : {{i.end_time}}
+    </li>
+  {% endfor %}
+</ul>
 {% endblock %}

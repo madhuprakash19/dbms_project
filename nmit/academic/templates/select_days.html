@@ -7,6 +7,6 @@
 {% endfor %}
 <h1>Mark/Edit</h1>
 {% for i in marked_days %}
-{{i}}
+<a href="{% url 'academic:add_time' class_id=i.sclass.id day_id=i.day.id %}">{{i}}</a>
 {% endfor %}
 {% endblock %}
