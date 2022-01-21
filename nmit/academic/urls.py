@@ -19,4 +19,6 @@ urlpatterns = [
     path('choose_section/<int:id>/<int:sem>',views.choose_section,name='choose_section'),
     path('select_days/<int:id>',views.select_days,name='select_days'),
     path('add_time/<int:class_id>/<int:day_id>',views.add_time,name='add_time'),
+    path('save_time/',views.save_time,name='save_time'),
+    path('edit_time/<int:id>',views.edit_time,name='edit_time'),
 ]

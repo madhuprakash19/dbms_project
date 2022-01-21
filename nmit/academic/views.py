@@ -267,63 +267,122 @@ def add_time(request,class_id,day_id):
     teacher = list(faculty_handled_class.objects.filter(sub_class_id__id = class_id))
     marked_days = list(time_table.objects.filter(sclass__id = class_id,day__id = day_id ))
 
-    if request.method == 'POST':
-        print(request.POST)
-        start_time = request.POST['start_time']
-        end_time = request.POST['end_time']
-        id_day = request.POST['day']
-        sub_id = request.POST['subjects']
-        new = request.POST['new']
-        print(new)
-
-
-        sub = faculty_handled_class.objects.get(id=sub_id)
-        teachergot = User.objects.get(id = sub.faculty_id.id)
-        dayobj = days.objects.get(id=id_day)
-        class_sub = sub_class.objects.get(id=class_id)
-
-
-        a = list(time_table.objects.filter(start_time__range=[start_time, end_time],day__id=id_day,teacher=teachergot))
-        a = a + list(time_table.objects.filter(end_time__range=[start_time, end_time],day__id=id_day,teacher=teachergot))
-        b = list(time_table.objects.filter(end_time__range=[start_time, end_time],sclass__id=class_id))
-        b = b + list(time_table.objects.filter(start_time__range=[start_time, end_time],sclass__id=class_id))
-        if len(a)>0:
-            error = 'Entered Faculty already has class on the given time slot'
-            return render(request,'add_time.html',{'class_id':class_id,'day_id':day_id,'teacher':teacher,'error':error,'marked_days':marked_days})
-        elif len(b)>0:
-            error = 'Class has been already alloted for the given time slot'
-            return render(request,'add_time.html',{'class_id':class_id,'day_id':day_id,'teacher':teacher,'error':error,'marked_days':marked_days})
-        elif new == 1:
-            save_time = time_table(faculty=sub,teacher=teachergot,start_time=start_time,end_time=end_time,day=dayobj,sclass=class_sub)
-            save_time.save()
-            marked_days = list(time_table.objects.filter(sclass__id = class_id,day__id = day_id ))
-            error = "Sucess time table added"
-            return render(request,'add_time.html',{'class_id':class_id,'day_id':day_id,'teacher':teacher,'error':error,'marked_days':marked_days})
-        else:
-            id_time = request.POST['time_id']
-            save_time = time_table.objects.get(id = id_time)
-            save_time.start_time = save_time
-            save_time.end_time = end_time
-            save_time.teacher = teachergot
-            save_time.faculty = sub
-            save_time.save()
-            error = "Sucess time table updated"
-            return render(request,'add_time.html',{'class_id':class_id,'day_id':day_id,'teacher':teacher,'error':error,'marked_days':marked_days})
+    # if request.method == 'POST':
+    #     print(request.POST)
+    #     start_time = request.POST['start_time']
+    #     end_time = request.POST['end_time']
+    #     day_id = request.POST['day']
+    #     sub_id = request.POST['subjects']
+    #     new = request.POST['new']
+    #     print(new)
+    #
+    #
+    #     sub = faculty_handled_class.objects.get(id=sub_id)
+    #     teachergot = User.objects.get(id = sub.faculty_id.id)
+    #     dayobj = days.objects.get(id=day_id)
+    #     class_sub = sub_class.objects.get(id=class_id)
+    #
+    #
+    #     a = list(time_table.objects.filter(start_time__range=[start_time, end_time],day__id=day_id,teacher=teachergot))
+    #     a = a + list(time_table.objects.filter(end_time__range=[start_time, end_time],day__id=day_id,teacher=teachergot))
+    #     b = list(time_table.objects.filter(end_time__range=[start_time, end_time],sclass__id=class_id))
+    #     b = b + list(time_table.objects.filter(start_time__range=[start_time, end_time],sclass__id=class_id))
+    #     if len(a)>0:
+    #         error = 'Entered Faculty already has class on the given time slot'
+    #         return render(request,'add_time.html',{'class_id':class_id,'day_id':day_id,'teacher':teacher,'error':error,'marked_days':marked_days})
+    #     elif len(b)>0:
+    #         error = 'Class has been already alloted for the given time slot'
+    #         return render(request,'add_time.html',{'class_id':class_id,'day_id':day_id,'teacher':teacher,'error':error,'marked_days':marked_days})
+    #     elif new == 1:
+    #         save_time = time_table(faculty=sub,teacher=teachergot,start_time=start_time,end_time=end_time,day=dayobj,sclass=class_sub)
+    #         save_time.save()
+    #         marked_days = list(time_table.objects.filter(sclass__id = class_id,day__id = day_id ))
+    #         error = "Sucess time table added"
+    #         return render(request,'add_time.html',{'class_id':class_id,'day_id':day_id,'teacher':teacher,'error':error,'marked_days':marked_days})
+    #     else:
+    #         id_time = request.POST['time_id']
+    #         save_time = time_table.objects.get(id = id_time)
+    #         save_time.start_time = save_time
+    #         save_time.end_time = end_time
+    #         save_time.teacher = teachergot
+    #         save_time.faculty = sub
+    #         save_time.save()
+    #         error = "Sucess time table updated"
+    #         return render(request,'add_time.html',{'class_id':class_id,'day_id':day_id,'teacher':teacher,'error':error,'marked_days':marked_days})
 
 
     return render(request,'add_time.html',{'class_id':class_id,'day_id':day_id,'teacher':teacher,'error':error,'marked_days':marked_days})
 
 
 
+def save_time(request):
+    print("save_time")
+    error = ''
+    start_time = request.POST['start_time']
+    end_time = request.POST['end_time']
+    day_id = request.POST['day']
+    sub_id = request.POST['subjects']
+    new = request.POST['new']
+    class_id = request.POST['class']
+    print(new)
 
 
+    sub = faculty_handled_class.objects.get(id=sub_id)
+    teachergot = User.objects.get(id = sub.faculty_id.id)
+    dayobj = days.objects.get(id=day_id)
+    class_sub = sub_class.objects.get(id=class_id)
+
+    marked_days = list(time_table.objects.filter(sclass__id = class_id,day__id = day_id ))
+    teacher = list(faculty_handled_class.objects.filter(sub_class_id__id = class_id))
 
 
+    a = list(time_table.objects.filter(start_time__range=[start_time, end_time],day__id=day_id,teacher=teachergot))
+    a = a + list(time_table.objects.filter(end_time__range=[start_time, end_time],day__id=day_id,teacher=teachergot))
+    b = list(time_table.objects.filter(end_time__range=[start_time, end_time],sclass__id=class_id))
+    b = b + list(time_table.objects.filter(start_time__range=[start_time, end_time],sclass__id=class_id))
+    if len(a)>0:
+        print("if 1")
+        error = 'Entered Faculty already has class on the given time slot'
+        return render(request,'add_time.html',{'class_id':class_id,'day_id':day_id,'teacher':teacher,'error':error,'marked_days':marked_days})
+    elif len(b)>0:
+        print("if 2")
+        error = 'Class has been already alloted for the given time slot'
+        return render(request,'add_time.html',{'class_id':class_id,'day_id':day_id,'teacher':teacher,'error':error,'marked_days':marked_days})
+    elif new == '1':
+        print("if 3")
+        save_time = time_table(faculty=sub,teacher=teachergot,start_time=start_time,end_time=end_time,day=dayobj,sclass=class_sub)
+        save_time.save()
+        marked_days = list(time_table.objects.filter(sclass__id = class_id,day__id = day_id ))
+        error = "Sucess time table added"
+        return render(request,'add_time.html',{'class_id':class_id,'day_id':day_id,'teacher':teacher,'error':error,'marked_days':marked_days})
+    elif new == '0':
+        print("if 4")
+        id_time = request.POST['time_id']
+        save_time = time_table.objects.get(id = id_time)
+        save_time.start_time = start_time
+        save_time.end_time = end_time
+        save_time.teacher = teachergot
+        save_time.faculty = sub
+        save_time.save()
+        error = "Sucess time table updated"
+        marked_days = list(time_table.objects.filter(sclass__id = class_id,day__id = day_id ))
+        return render(request,'add_time.html',{'class_id':class_id,'day_id':day_id,'teacher':teacher,'error':error,'marked_days':marked_days})
 
 
+    print("skipped all")
+
+    return render(request,'add_time.html',{'class_id':class_id,'day_id':day_id,'teacher':teacher,'error':error,'marked_days':marked_days})
 
 
+def edit_time(request,id):
+    error = ''
+    time = time_table.objects.get(id = id)
+    sclass = time.sclass
+    day = time.day
+    select_teacher = time.faculty.id
+    print(time)
 
+    teacher = list(faculty_handled_class.objects.filter(sub_class_id = sclass))
+    marked_days = list(time_table.objects.filter(sclass = sclass,day = day))
 
-
-    #
+    return render(request,'edit_time.html',{'teacher':teacher,'error':error,'marked_days':marked_days,'time':time,'select_teacher':select_teacher})

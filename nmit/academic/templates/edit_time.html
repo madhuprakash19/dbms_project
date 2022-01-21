@@ -1,28 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
-<p>Add time page</p>
+<p>Edit time page</p>
 {{error}}
+{{time.start_time}}
 <form action="{% url 'academic:save_time' %}" method="POST">
   {% csrf_token %}
         Start time:
-        <input type="time" name="start_time" required>
+        <input type="time" name="start_time"  >
         End time:
-        <input type="time" name="end_time" required>
+        <input type="time" name="end_time" >
 
     <br><br>
 
     <label for="cars">Select Faculty and subject:</label>
 
-    <select name="subjects" id="cars" required>
+    <select name="subjects"  required>
       {% for i in teacher %}
-        <option value="{{i.id}}">{{i}}</option>
+        <option value="{{i.id}}" >{{i}}
+
+        </option>
       {% endfor %}
     </select>
     <br>
     <input type="submit" value="Submit">
-    <input type="hidden" name="day" value="{{day_id}}">
-    <input type="hidden" name="class" value="{{class_id}}">
-    <input type="hidden" name="new" value="1">
+    <input type="hidden" name="time_id" value="{{time.id}}">
+    <input type="hidden" name="day" value="{{time.day.id}}">
+    <input type="hidden" name="class" value="{{time.sclass.id}}">
+    <input type="hidden" name="new" value="0">
 </form>
 <br><br>
 <h1>Previously marked</h1>
