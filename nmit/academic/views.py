@@ -24,28 +24,25 @@ def home(request):
         try:
             day_subject = registered_students.objects.get(student=request.user)
             sclass = day_subject.class_id
-            day_subject = list(time_table.objects.filter(sclass = sclass))
+            day = days.objects.get(name = today)
+            day_subject = list(time_table.objects.filter(sclass = sclass,day = day))
         except:
             day_subject = 'There are no classes today'
         return render(request,'student_home.html',{'day_subject':day_subject})
-
     elif(hod_status(request.user)):
         day = days.objects.get(name = today)
         try:
-            print("in try")
             day_subject = list(time_table.objects.filter(day = day,teacher=request.user))
         except:
-            print("in except")
             day_subject = 'There are no classes today'
         return render(request,'hod_home.html',{'day':day,'day_subject':day_subject})
-
     elif(faculty_status(request.user)):
         day = days.objects.get(name = today)
         try:
             day_subject = list(time_table.objects.filter(day = day,teacher=request.user))
         except:
             day_subject = 'There are no classes today'
-        return render(request,'hod_home.html',{'day':day,'day_subject':day_subject})
+        return render(request,'faculty_home.html',{'day':day,'day_subject':day_subject})
 
     return render(request,'home.html',{'day':day})
 
@@ -75,7 +72,6 @@ def view_class(request,id):
         for i in fsubjects:
             a[i.subject.class_subject]['class_id']=sclass.id
             a[i.subject.class_subject]['subject_id']=i.id
-        print(a)
 
 
         return render(request,'view_class.html',{'student_list':student_list,'sclass':sclass,'a':a})
@@ -249,7 +245,6 @@ def save_marks(request):
     subject_id = request.POST['subject_id']
     faculty = faculty_handled_class.objects.get(id = subject_id)
     subject = class_subject.objects.get(id=faculty.subject.id)
-    print(subject)
     test_type_object = test_type.objects.get(id = request.POST['exam_id'])
 
     try:
@@ -292,22 +287,23 @@ def marks_report(request):
             report[i.class_subject.name] = {'LA1':0,'LA2':0,'MSE1':0,'MSE2':0,'MSE3':0,'SEE':0}
         for i in smarks:
             report[i.test_id.subject_id.class_subject.name][i.test_id.test_type.code] = i.marks_obtained
-        print(report)
         return render(request,'marks_report.html',{'report':report})
     else:
         return forbidden(request)
 
 @login_required
 def time_test(request):
-    print(request.POST)
     return render(request,'time.html')
 
 
 def hod_status(user):
-    hod_status = teacher.objects.get(user=user)
-    if hod_status.designation_id.id == 2:
-        return True
-    else:
+    try:
+        hod_status = teacher.objects.get(user=user)
+        if hod_status.designation_id.id == 2:
+            return True
+        else:
+            return False
+    except:
         return False
 
 def faculty_status(user):
@@ -347,7 +343,7 @@ def time_list(request):
 
 @login_required
 def choose_section(request,id,sem):
-    if(faculty_status(request.user)):
+    if(hod_status(request.user)):
         sclass = list(sub_class.objects.filter(parent_class__id = id))
         return render(request,'choose_section.html',{'sclass':sclass,'sem':sem})
     else:
@@ -355,7 +351,7 @@ def choose_section(request,id,sem):
 
 @login_required
 def select_days(request,id):
-    if(faculty_status(request.user)):
+    if(hod_status(request.user)):
         unmarked_days = {1:'Monday',2:'Tuesday',3:'Wednesday',4:'Thrusday',5:'Friday',6:'Saturday'}
         return render(request,'select_days.html',{'unmarked_days':unmarked_days,'id':id})
     else:
@@ -363,7 +359,7 @@ def select_days(request,id):
 
 @login_required
 def add_time(request,class_id,day_id,errornum):
-    if(faculty_status(request.user)):
+    if(hod_status(request.user)):
         if(errornum==1):
             error = "Sucess New Time table added"
         elif(errornum==2):
@@ -389,7 +385,6 @@ def add_time(request,class_id,day_id,errornum):
 
 @login_required
 def save_time(request):
-    print(request.POST)
     errornum = 0
     start_time = request.POST['start_time']
     end_time = request.POST['end_time']
@@ -402,34 +397,28 @@ def save_time(request):
     teachergot = User.objects.get(id = sub.faculty_id.id)
     dayobj = days.objects.get(id=day_id)
     class_sub = sub_class.objects.get(id=class_id)
-    print(sub)
     marked_days = list(time_table.objects.filter(sclass__id = class_id,day__id = day_id ))
     teacher = list(faculty_handled_class.objects.filter(sub_class_id__id = class_id))
 
 
     a = list(time_table.objects.filter(start_time__range=[start_time, end_time],day=dayobj,teacher=teachergot))
     a = a + list(time_table.objects.filter(end_time__range=[start_time, end_time],day=dayobj,teacher=teachergot))
-    print(a)
     b = list(time_table.objects.filter(end_time__range=[start_time, end_time],sclass=class_sub,day=dayobj))
     b = b + list(time_table.objects.filter(start_time__range=[start_time, end_time],sclass=class_sub,day=dayobj))
 
     if len(a)>0:
-        print("if 1")
         errornum = 3
         return HttpResponseRedirect(reverse('academic:add_time',args=[class_id,day_id,errornum]))
     elif len(b)>0:
-        print("if 2")
         errornum = 4
         return HttpResponseRedirect(reverse('academic:add_time',args=[class_id,day_id,errornum]))
     elif new == '1' and len(a)==0 and len(b)==0:
-        print("if 3")
         save_time = time_table(faculty=sub,teacher=teachergot,start_time=start_time,end_time=end_time,day=dayobj,sclass=class_sub)
         save_time.save()
         marked_days = list(time_table.objects.filter(sclass__id = class_id,day__id = day_id ))
         errornum = 1
         return HttpResponseRedirect(reverse('academic:add_time',args=[class_id,day_id,errornum]))
     elif new == '0' and len(a)==0 and len(b)==0:
-        print("if 4")
         id_time = request.POST['time_id']
         save_time = time_table.objects.get(id = id_time)
         save_time.start_time = start_time
@@ -452,7 +441,6 @@ def edit_time(request,id):
         sclass = time.sclass
         day = time.day
         select_teacher = time.faculty.id
-        print(time)
 
         teacher = list(faculty_handled_class.objects.filter(sub_class_id = sclass))
         marked_days = list(time_table.objects.filter(sclass = sclass,day = day))
@@ -475,5 +463,29 @@ def delete_time(request,id):
 
 
         return render(request,'delete_time.html',{'time':time})
+    else:
+        return forbidden(request)
+
+
+@login_required
+def attendence_report(request):
+    if(student_status(request.user)):
+        a = {}
+        attend = list(attendence_count.objects.filter(student=request.user))
+        for i in attend:
+            a[i.subject] = {'total':0,'attended':0,'css':0,'percentage':0}
+            a[i.subject]['total'] = i.total_class
+            a[i.subject]['attended'] = i.attended_class
+            temp = float(i.attended_class*100/i.total_class)
+            temp = round(temp,2)
+            a[i.subject]['percentage'] = temp
+            if temp>85:
+                css = 'btn btn-success'
+            elif temp>65:
+                css = "btn btn-warning"
+            else:
+                css = "btn btn-danger"
+            a[i.subject]['css'] = css
+        return render(request,'attendence_report.html',{'a':a})
     else:
         return forbidden(request)

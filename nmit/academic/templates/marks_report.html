@@ -1,31 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="jumbotron">
-  <h1>{{user.first_name}}'s Marks Report</h1>
+  <h1 class="w3-animate-left">{{user.first_name}}'s Marks Report</h1>
   <br><hr><br>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Subject</th>
-        <th>LA1</th>
-        <th>LA2</th>
-        <th>MSE1</th>
-        <th>MSE2</th>
-        <th>MSE3</th>
-        <th>SEE</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for i,j in report.items %}
-      <tr>
-        <td>{{i}}</td>
-        {% for p,q in j.items  %}
-        <td>{{q}}</td>
+  <div class="table-responsive">
+    <table class="table table-striped w3-animate-bottom ">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>LA1</th>
+          <th>LA2</th>
+          <th>MSE1</th>
+          <th>MSE2</th>
+          <th>MSE3</th>
+          <th>SEE</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i,j in report.items %}
+        <tr>
+          <td>{{i}}</td>
+          {% for p,q in j.items  %}
+          <td>{{q}}</td>
+          {% endfor %}
+        </tr>
         {% endfor %}
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 {% endblock %}

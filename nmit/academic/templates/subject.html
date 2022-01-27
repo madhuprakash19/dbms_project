@@ -5,6 +5,8 @@
   {% for i in subject %}
   <b class=" w3-animate-bottom">Subject</b><span class=w3-animate-bottom>: {{i.subject}}</span><br>
   <b class=" w3-animate-bottom">Class </b><span class="w3-animate-bottom">: {{i.sub_class_id}}</span><br><br>
+  <a href="{% url 'academic:attendence_schedule' class_id=i.sub_class_id.id subject_id=i.id %}" class="btn btn-info btn-sm w3-animate-bottom">Mark Attendence</a>&emsp;
+  <a href="{% url 'academic:marks_list' class_id=i.sub_class_id.id subject_id=i.id %}" class="btn btn-info btn-sm w3-animate-bottom">Enter Marks</a><br><br>
   <a href="{% url 'academic:view_class' id=i.sub_class_id.id  %}" class="btn btn-primary btn-sm  w3-animate-bottom">View Class</a>
 
   <br><br><br>

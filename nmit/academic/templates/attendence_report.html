@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  <h1 class="w3-animate-left">{{user.first_name}}'s Attedence Report</h1><br>
+  {% for i,j in a.items %}
+  <div class="w3-animate-bottom">
+    <h4>Subject: <span class="text-muted"> {{i}} </span></h4>
+    <b>Conducted classes: </b>{{j.total}}<br>
+    <b>Attended classes: </b>{{j.attended}}<br>
+    <b>Attedence Percentage: </b><span class="{{j.css}} btn-sm">{{j.percentage}}</span><br>
+  </div><br>
+  {% endfor %}
+</div>
+
+{% endblock %}

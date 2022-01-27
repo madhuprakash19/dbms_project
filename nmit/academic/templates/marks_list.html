@@ -2,7 +2,7 @@
 {% block content %}
 <div class="jumbotron">
   <h1 class="text-center w3-animate-zoom">Entering marks for {{sclass}}</h1><br>
-  <table class="table w3-animate-bottom">
+  <table class="table w3-animate-bottom table-responsive">
     <thead>
       <tr>
       <th scope="col">Exam Type</th>
@@ -35,6 +35,7 @@
       {% endfor %}
     </tbody>
   </table>
+  <a href="{% url 'academic:teacher_subject' %}"  class="btn btn-info w3-animate-bottom">Back to Subjects</a>
 </div>
 
 {% endblock %}

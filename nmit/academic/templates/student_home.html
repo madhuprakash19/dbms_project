@@ -1,4 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Student page</h1>
+<div class="jumbotron">
+  <h1 class=" w3-animate-bottom">Wecome {{user}}</h1><br>
+  <a href="{% url 'academic:marks_report' %}" class="btn btn-success w3-animate-bottom ">Marks Report</a>&emsp;
+  <a href="{% url 'academic:attendence_report' %}" class="btn btn-success w3-animate-bottom ">Attendence Report</a>
+  <br><br>
+  <h4 class="text-muted w3-animate-bottom">Today's Classes</h4><br>
+  <ul class="w3-animate-bottom">
+    {% for i in day_subject %}
+    <li class="w3-animate-bottom">
+      {{i.faculty.subject.class_subject}}<br>
+      {{i.sclass}}<br>
+      Start Time : {{i.start_time}}<br>
+      End Time : {{i.end_time}}<br><br>
+    </li><br>
+    {% endfor %}
+  </ul>
+</div>
 {% endblock %}
