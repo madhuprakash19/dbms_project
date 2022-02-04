@@ -8,7 +8,7 @@ Bootstrap3 app for Django
 ## How to run
 Navigate inside nmit folder and run these in command prompt
 ### First time run
-Install the django3 app
+Install the bootstrap3 app
 
 ` $ pip install django-bootstrap3`
 ### For Every other time
