@@ -1,9 +1,9 @@
 # College Portal
 
 ## Software required to run
-Python 3.9.5
-Django 3.2
-Bootstrap 3 app for Django
+Python 3.9.5  
+Django 3.2  
+Bootstrap3 app for Django  
 
 ## How to run
 Navigate inside nmit folder and run these in command prompt
